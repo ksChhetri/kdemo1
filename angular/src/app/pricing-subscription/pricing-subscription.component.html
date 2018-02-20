@@ -1,8 +1,9 @@
 <div class="ks-page-header">
   <section class="ks-title">
-    <h3>Pricing Subscriptions</h3>
+    <h3>Subscriptions</h3>
+    <!-- <h3>Pricing Subscriptions</h3> -->
 
-    <div class="ks-controls">
+    <!-- <div class="ks-controls">
       <nav class="breadcrumb ks-default">
         <a class="breadcrumb-item ks-breadcrumb-icon" href="#">
           <span class="la la-home ks-icon"></span>
@@ -10,7 +11,7 @@
         <a class="breadcrumb-item" href="#">Pricing</a>
         <span class="breadcrumb-item active" href="#">Subscriptions</span>
       </nav>
-    </div>
+    </div> -->
   </section>
 </div>
 <div class="ks-page-content">
@@ -18,11 +19,11 @@
     <div class="ks-nav-body-wrapper">
       <div class="ks-pricing-subscriptions-page">
         <div class="ks-header">
-          <h3 class="ks-name">Pricing</h3>
+          <h3 class="ks-name">Buy/Sell</h3>
           <div class="ks-description">Plans that cater to everyone</div>
         </div>
         <div class="ks-subscriptions">
-          <div class="subscription-toggle">
+          <!-- <div class="subscription-toggle">
             <div class="ks-checkbox-text-slider">
               <span class="ks-text ks-color-info">Monthly</span>
               <label class="ks-checkbox-slider ks-info">
@@ -34,7 +35,7 @@
             <div class="ks-description">
               SAVE 20% ON ANNUAL SUBSCRIPTIONS!
             </div>
-          </div>
+          </div> -->
           <div class="ks-subscription">
             <div class="ks-header">
               <span class="ks-name">Startup</span>
@@ -43,7 +44,7 @@
                                     </span>
             </div>
             <div class="ks-body">
-              <ul>
+              <!-- <ul>
                 <li class="ks-item">
                   <span class="ks-icon la la-briefcase"></span>
                   <span class="ks-text">Leads</span>
@@ -79,8 +80,27 @@
                   <span class="ks-text">Team Members</span>
                   <span class="ks-amont">3</span>
                 </li>
-              </ul>
-              <a href="#" class="btn btn-info-outline btn-block">Start free trial</a>
+              </ul> -->
+              <form (submit)="onRegisterSubmit()">
+                <div class="form-group">
+                  <label>Amount</label>
+                  <input type="text" [(ngModel)]="amount" name="amount" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" [(ngModel)]="address" name="address" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="text" [(ngModel)]="email" name="email" class="form-control" >
+                </div>
+                <div class="form-group">
+                  <label>Comment</label>
+                  <input type="comment" [(ngModel)]="comment" name="comment" class="form-control">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Submit">
+              </form>
+              <!-- <a href="#" class="btn btn-info-outline btn-block">Start free trial</a> -->
             </div>
           </div>
           <div class="ks-subscription ks-active">
