@@ -39,6 +39,7 @@ import { ProfileCustomerComponent } from './profile-customer/profile-customer.co
 import { BlankPageComponent } from './blank-page/blank-page.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ScriptLoaderService } from './services/script-loader.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ScriptLoaderService } from './services/script-loader.service';
     EmailTemplatesComponent,
     ProfileCustomerComponent,
     BlankPageComponent,
-    ContactsComponent
+    ContactsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
