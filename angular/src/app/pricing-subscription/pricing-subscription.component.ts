@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidateService } from '../services/validate.service';
-import { AuthService } from '../services/auth.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router } from '@angular/router'
+//import {FormGroup,FormControl,Validators,FormsModule, } from '@angular/forms';
+import {TransactionService} from '../services/transaction.service';
+import {Http,Response, Headers, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'app-pricing-subscription',
@@ -11,37 +10,17 @@ import { Router } from '@angular/router'
 })
 export class PricingSubscriptionComponent implements OnInit {
 
-  amount:Number;
-  address:String;
-  email:String;
-  comment:String;
-
-  constructor(private validateService: ValidateService,
-    private flashMessagesService: FlashMessagesService,
-    private authService: AuthService,
-    private router: Router) { }
+  constructor(private transactionService : TransactionService,) { }
 
   ngOnInit() {
+    //this.newService.GetUser().subscribe(data =>  this.Repdata = data)
   }
-  onRegisterSubmit() {
-    // testing console.log(this.name);
-    //creating object from above field
-    const user = {
-      amount:this.amount,
-      address:this.address,
-      email:this.email,
-      comment:this.comment
-    }
-  //register user 
-  this.authService.registerUser(user).subscribe(data => {
-    if (data.success) {
-      this.flashMessagesService.show('Registeration Success', { cssClass: 'alert-success', timeout: 1000 });
-      //this.router.navigate(['/login']);
-    }
-    else {
-      this.flashMessagesService.show('Woops Something Gone Wrong', { cssClass: 'alert-danger', timeout: 1000 });
-      this.router.navigate(['/register']);
-    }
-  });
+
+  buyToken = function(data,isValid: boolean) {
+    this.transactionService.buyToken(data)
+    .subscribe(data =>  {
+      this.ngOnInit();
+    },
+    error => this.errorMessage = error)
   }
 }

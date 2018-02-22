@@ -40,6 +40,7 @@ import { BlankPageComponent } from './blank-page/blank-page.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ScriptLoaderService } from './services/script-loader.service';
 import { LoginComponent } from './login/login.component';
+import { TransactionService } from './services/transaction.service';
 
 @NgModule({
   declarations: [
@@ -118,13 +119,13 @@ import { LoginComponent } from './login/login.component';
       { path: 'documentation', component: DocumentationComponent },
       { path: 'pages/blank', component: BlankPageComponent },
       { path: 'pages/contacts', component: ContactsComponent },
-      { path: '', component: DashboardComponent, pathMatch: 'full' },
+      // { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }
     ], {
       useHash: false
     })
   ],
-  providers: [ScriptLoaderService],
+  providers: [ScriptLoaderService, TransactionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

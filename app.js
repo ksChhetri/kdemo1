@@ -23,6 +23,7 @@ const app = express();
 
 //users routes files
 const users=require('./routes/users');
+const transactions = require('./routes/transaction');
 
 //port number
 const port = 3000;
@@ -44,6 +45,7 @@ require('./config/passport')(passport);
 
 //user route use
 app.use('/users',users);
+app.use('/transactions', transactions);
 
 //index route
 app.get('/',(req, res)=> {
@@ -54,7 +56,7 @@ app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname,'public/index.html'));
 });
 
-//start server 
+//start server
 app.listen(port, () => {
     console.log('Server Started Port No::: ' + port)
 });
