@@ -19,19 +19,19 @@ InrtTokenContract.setProvider(provider);
 router.post('/buyToken', (req, res, next) => {
   console.log("data" , req.body);
 
+  var _address = req.body.amount;
+  var _amount = req.body.amount;
+
   let buyToken = new Transaction({
     userId:req.body.email,
-    amount:req.body.amount,
-    address:req.body.address,
+    address: _address,
+    amount: _amount,
     status:0
   });
 
-  var address = "0xaae21f51886478a1b1c1d15c8968709d1214a039";
-  var amount = 200;
-
   // Use Truffle as usual
   InrtTokenContract.deployed().then(function(instance) {
-    return instance.transfer.call(address, amount, { gas: 200000 });
+    return instance.transfer.call(address, amount, { gas: 300000 });
   }).then(function(result) {
     console.log(result);
     Transaction.buyToken(buyToken, (err, data) => {

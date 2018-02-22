@@ -125,7 +125,7 @@ import { TransactionService } from './services/transaction.service';
       useHash: false
     })
   ],
-  providers: [ScriptLoaderService, TransactionService],
+  providers: [ScriptLoaderService, TransactionService, {provide: Window, useValue: window}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
