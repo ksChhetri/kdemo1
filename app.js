@@ -7,16 +7,10 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config=require('./config/database');
 
-//call connect function so mangoose connect to database
-mongoose.connect(config.database);
-//putting something so we can sure we were connected
-mongoose.connection.on('connected',()=>{
-    console.log('connected to  database::: '+config.database);
-});
-//On error
-mongoose.connection.on('error',(err)=>{
-    console.log('DataBase Error::: '+err);
-});
+// [SH] Bring in the data model
+require('./models/db');
+// [SH] Bring in the Passport config after model is defined
+require('./config/passport');
 
 //load the server in app
 const app = express();
@@ -41,7 +35,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./config/passport')(passport);
+// require('./config/passport')(passport);
 
 //user route use
 app.use('/users',users);

@@ -11,7 +11,7 @@ var path = require('path');
 var InrtTokenJSON  = require(path.join(__dirname, '../build/contracts/InrtToken.json'));
 
 // Setup RPC connection
-var provider    = new Web3.providers.HttpProvider("http://localhost:8545");
+var provider  = new Web3.providers.HttpProvider("http://localhost:8545");
 var InrtTokenContract = contract(InrtTokenJSON);
 InrtTokenContract.setProvider(provider);
 
@@ -31,7 +31,7 @@ router.post('/buyToken', (req, res, next) => {
 
   // Use Truffle as usual
   InrtTokenContract.deployed().then(function(instance) {
-    return instance.transfer.call(address, amount, { gas: 300000 });
+    return instance.transfer.call(address, amount, { gas: 300000, from: Web3.eth.accounts[0], });
   }).then(function(result) {
     console.log(result);
     Transaction.buyToken(buyToken, (err, data) => {

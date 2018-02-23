@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BusyModule} from 'angular2-busy';
 
@@ -41,6 +43,9 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { ScriptLoaderService } from './services/script-loader.service';
 import { LoginComponent } from './login/login.component';
 import { TransactionService } from './services/transaction.service';
+import { RegisterComponent } from './register/register.component';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -74,7 +79,8 @@ import { TransactionService } from './services/transaction.service';
     ProfileCustomerComponent,
     BlankPageComponent,
     ContactsComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +89,10 @@ import { TransactionService } from './services/transaction.service';
     SharedModule,
     BrowserAnimationsModule,
     BusyModule,
+    HttpClientModule,
     RouterModule.forRoot([
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'calendar', component: CalendarAppComponent },
       { path: 'draggable-dashboard', component: DraggableDashboardComponent },
       {
@@ -119,13 +128,19 @@ import { TransactionService } from './services/transaction.service';
       { path: 'documentation', component: DocumentationComponent },
       { path: 'pages/blank', component: BlankPageComponent },
       { path: 'pages/contacts', component: ContactsComponent },
-      // { path: '', component: DashboardComponent, pathMatch: 'full' },
+      { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
       { path: '**', component: PageNotFoundComponent }
     ], {
       useHash: false
     })
   ],
-  providers: [ScriptLoaderService, TransactionService, {provide: Window, useValue: window}],
+  providers: [
+    ScriptLoaderService,
+    TransactionService,
+    AuthenticationService,
+    AuthGuardService,
+    {provide: Window, useValue: window}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,26 +1,28 @@
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const User = require('../models/user');
-const config = require('../config/database');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
-module.exports = function (passport) {
-    let opts = {};
-    opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
-
-    //console.log(opts.jwtFromRequest);
-    opts.secretOrKey = config.secret;
-    //console.log("djwt_payload");
-    passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-        User.getUserById(jwt_payload._id, (err, user) => {
-            if (err) {
-                return done(err, false);
-            }
-            if (user) {
-                return done(null, user);
-            }
-            else {
-                return done(null, false);
-            }
+passport.use(new LocalStrategy({
+    usernameField: 'email'
+  },
+  function(username, password, done) {
+    User.findOne({ email: username }, function (err, user) {
+      if (err) { return done(err); }
+      // Return if user not found in database
+      if (!user) {
+        return done(null, false, {
+          message: 'User not found'
         });
-    }));
-}
+      }
+      // Return if password is wrong
+      if (!user.validPassword(password)) {
+        return done(null, false, {
+          message: 'Password is wrong'
+        });
+      }
+      // If credentials are correct, return the user object
+      return done(null, user);
+    });
+  }
+));
