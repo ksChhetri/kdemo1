@@ -31,6 +31,10 @@ const Transaction = module.exports = mongoose.model('Transaction', TransactionSc
 // module.exports.getUserById = function (id, callback) {
 //     User.findById(id, callback);
 // }
+module.exports.getHistory = function (callback) {
+    Transaction.find({}, callback);
+}
+
 //
 // module.exports.getUserByUsername = function (username, callback) {
 //     const query = { username: username }

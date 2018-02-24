@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TransactionHistoryService} from '../../services/transaction-history.service';
+import {Http,Response, Headers, RequestOptions } from '@angular/http';
 
 declare let $: any;
 
@@ -9,12 +11,16 @@ declare let $: any;
 })
 export class BillingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private transactionHistoryService : TransactionHistoryService) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
     $('table').stacktable();
+  }
+
+  getHistory = function() {
+    this.transactionHistoryService.getHistory();
   }
 }

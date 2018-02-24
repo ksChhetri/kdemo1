@@ -43,9 +43,12 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { ScriptLoaderService } from './services/script-loader.service';
 import { LoginComponent } from './login/login.component';
 import { TransactionService } from './services/transaction.service';
+import { TransactionHistoryService } from './services/transaction-history.service';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { StepsColumnComponent } from './form/steps-column/steps-column.component';
+import { BillingComponent } from './payment/billing/billing.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +83,9 @@ import { AuthGuardService } from './services/auth-guard.service';
     BlankPageComponent,
     ContactsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    StepsColumnComponent,
+    BillingComponent
   ],
   imports: [
     BrowserModule,
@@ -93,10 +98,9 @@ import { AuthGuardService } from './services/auth-guard.service';
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'calendar', component: CalendarAppComponent },
-      { path: 'draggable-dashboard', component: DraggableDashboardComponent },
+      { path: 'kyc', component: StepsColumnComponent, canActivate: [AuthGuardService] },
       {
-        path: 'user-settings',
+        path: 'profile',
         component: UserSettingsComponent,
         children: [
           { path: '', redirectTo: 'general', pathMatch: 'full' },
@@ -107,29 +111,50 @@ import { AuthGuardService } from './services/auth-guard.service';
           { path: 'organizations', component: UserSettingsOrganizationsComponent },
           { path: 'notifications', component: UserSettingsNotificationsComponent },
           { path: 'billing', component: UserSettingsBillingComponent }
-        ]
+        ],
+        canActivate: [AuthGuardService]
       },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'profile-customer', component: ProfileCustomerComponent },
-      { path: 'crm/contact', component: CrmContactComponent },
-      { path: 'crm/contacts', component: CrmContactsComponent },
-      { path: 'crm/users/list', component: CrmUserListComponent },
-      { path: 'crm/users/grid', component: CrmUserGridComponent },
-      { path: 'crm/roles-and-permissions', component: CrmRolePermissionComponent },
-      { path: 'pricing/plans', component: PricingPlanComponent },
-      { path: 'pricing/subscriptions', component: PricingSubscriptionComponent },
-      { path: 'projects', loadChildren: './projects/projects.module'},
-      { path: 'form', loadChildren: './form/form.module'},
-      { path: 'uikit', loadChildren: './uikit/uikit.module'},
-      { path: 'components', loadChildren: './components/components.module'},
-      { path: 'payment', loadChildren: './payment/payment.module'},
-      { path: 'email-templates', component: EmailTemplatesComponent },
-      { path: 'faq', component: FaqComponent },
-      { path: 'documentation', component: DocumentationComponent },
-      { path: 'pages/blank', component: BlankPageComponent },
-      { path: 'pages/contacts', component: ContactsComponent },
-      { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
-      { path: '**', component: PageNotFoundComponent }
+      { path: 'history', component: BillingComponent, canActivate: [AuthGuardService] },
+      { path: 'order', component: PricingSubscriptionComponent, canActivate: [AuthGuardService] },
+      { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService] }
+
+      // { path: 'calendar', component: CalendarAppComponent },
+      // { path: 'draggable-dashboard', component: DraggableDashboardComponent },
+      // {
+      //   path: 'user-settings',
+      //   component: UserSettingsComponent,
+      //   children: [
+      //     { path: '', redirectTo: 'general', pathMatch: 'full' },
+      //     { path: 'general', component: UserSettingsGeneralComponent },
+      //     { path: 'contact-info', component: UserSettingsContactInfoComponent },
+      //     { path: 'experience', component: UserSettingsExperienceComponent },
+      //     { path: 'education', component: UserSettingsEducationComponent },
+      //     { path: 'organizations', component: UserSettingsOrganizationsComponent },
+      //     { path: 'notifications', component: UserSettingsNotificationsComponent },
+      //     { path: 'billing', component: UserSettingsBillingComponent }
+      //   ]
+      // },
+      // { path: 'profile', component: ProfileComponent },
+      // { path: 'profile-customer', component: ProfileCustomerComponent },
+      // { path: 'crm/contact', component: CrmContactComponent },
+      // { path: 'crm/contacts', component: CrmContactsComponent },
+      // { path: 'crm/users/list', component: CrmUserListComponent },
+      // { path: 'crm/users/grid', component: CrmUserGridComponent },
+      // { path: 'crm/roles-and-permissions', component: CrmRolePermissionComponent },
+      // { path: 'pricing/plans', component: PricingPlanComponent },
+      // { path: 'pricing/subscriptions', component: PricingSubscriptionComponent },
+      // { path: 'projects', loadChildren: './projects/projects.module'},
+      // // { path: 'form', loadChildren: './form/form.module'},
+      // { path: 'uikit', loadChildren: './uikit/uikit.module'},
+      // { path: 'components', loadChildren: './components/components.module'},
+      // { path: 'payment', loadChildren: './payment/payment.module'},
+      // { path: 'email-templates', component: EmailTemplatesComponent },
+      // { path: 'faq', component: FaqComponent },
+      // { path: 'documentation', component: DocumentationComponent },
+      // { path: 'pages/blank', component: BlankPageComponent },
+      // { path: 'pages/contacts', component: ContactsComponent },
+      // { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
+      // { path: '**', component: PageNotFoundComponent }
     ], {
       useHash: false
     })
@@ -139,7 +164,8 @@ import { AuthGuardService } from './services/auth-guard.service';
     TransactionService,
     AuthenticationService,
     AuthGuardService,
-    {provide: Window, useValue: window}
+    TransactionHistoryService,
+    { provide: Window, useValue: window }
   ],
   bootstrap: [AppComponent]
 })

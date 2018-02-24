@@ -69,12 +69,11 @@ export class AuthenticationService {
 
   private request(method: 'post'|'get', type: 'login'|'register'|'profile', user?: TokenPayload): Observable<any> {
     let base;
-    console.log(this._baseUrl);
 
     if (method === 'post') {
-      base = this.http.post(this._baseUrl + '/users/' + type, user);
+      base = this.http.post(this._baseUrl + '/api/users/' + type, user);
     } else {
-      base = this.http.get(this._baseUrl + '/users/' + type, { headers: new  HttpHeaders({ 'Authorization': 'Bearer ${this.getToken()}'})});
+      base = this.http.get(this._baseUrl + '/api/' + type, { headers: new HttpHeaders({ Authorization: `Bearer ${this.getToken()}` })});
     }
 
     const request = base.pipe(

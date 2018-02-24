@@ -1,6 +1,6 @@
 <div class="ks-page-header">
   <section class="ks-title">
-    <h3>Subscriptions</h3>
+    <!-- <h3>Subscriptions</h3> -->
     <!-- <h3>Pricing Subscriptions</h3> -->
 
     <!-- <div class="ks-controls">
@@ -19,7 +19,7 @@
     <div class="ks-nav-body-wrapper">
       <div class="ks-pricing-subscriptions-page">
         <div class="ks-header">
-          <h3 class="ks-name">Buy/Sell</h3>
+          <h3 class="ks-name">Buy or Sell</h3>
           <div class="ks-description">Plans that cater to everyone</div>
         </div>
         <div class="ks-subscriptions">
@@ -39,9 +39,9 @@
           <div class="ks-subscription">
             <div class="ks-header">
               <!-- <span class="ks-name">Buy</span> -->
-                                    <span class="ks-price">
-                                        <span class="ks-amount">Buy INRT</span>
-                                    </span>
+                <span class="ks-price">
+                   <span class="ks-amount">Get Test INRT</span>
+                </span>
             </div>
             <div class="ks-body">
               <!-- <ul>
@@ -84,10 +84,10 @@
               <form #userForm="ngForm" (submit)="buyToken(userForm.value)">
                 <div class="form-group">
                   <label>Amount</label>
-                  <input type="text" [(ngModel)]="amount" name="amount" class="form-control">
+                  <input type="number" [(ngModel)]="amount" name="amount" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>Address</label>
+                  <label>Your Ether address</label>
                   <input type="text" [(ngModel)]="address" name="address" class="form-control">
                 </div>
                 <!-- <div class="form-group">
@@ -155,69 +155,56 @@
             <div class="ks-header">
               <!-- <span class="ks-name">Startup</span> -->
                                     <span class="ks-price">
-                                        <span class="ks-amount">Sell INRT</span>
+                                        <span class="ks-amount">Sell Your INRT</span>
                                     </span>
             </div>
             <div class="ks-body">
-              <!-- <ul>
-                <li class="ks-item">
-                  <span class="ks-icon la la-briefcase"></span>
-                  <span class="ks-text">Leads</span>
-                  <span class="ks-amount">50,000</span>
-                </li>
-                <li class="ks-item">
-                  <span class="ks-icon la la-users"></span>
-                  <span class="ks-text">Customers</span>
-                  <span class="ks-amount">25,000</span>
-                </li>
-                <li class="ks-item">
-                  <span class="ks-icon la la-paper-plane"></span>
-                  <span class="ks-text">Emails</span>
-                  <span class="ks-amount">25,000</span>
-                </li>
-                <li class="ks-item">
-                  <span class="ks-icon la la-bell"></span>
-                  <span class="ks-text">Notifications</span>
-                  <span class="ks-amount">3</span>
-                </li>
-                <li class="ks-item">
-                  <span class="ks-icon la la-comments"></span>
-                  <span class="ks-text">Chat Agents</span>
-                  <span class="ks-amount">3</span>
-                </li>
-                <li class="ks-item">
-                  <span class="ks-icon la la-ticket"></span>
-                  <span class="ks-text">Support Tickets Replies</span>
-                  <span class="ks-amount">500</span>
-                </li>
-                <li class="ks-item">
-                  <span class="ks-icon la la-male"></span>
-                  <span class="ks-text">Team Members</span>
-                  <span class="ks-amont">3</span>
-                </li>
-              </ul> -->
-              <form #userForm="ngForm" (submit)="buyToken(userForm.value)">
+              <form #userForm2="ngForm" (submit)="sellToken(userForm.value)">
                 <div class="form-group">
                   <label>Amount</label>
-                  <input type="text" [(ngModel)]="amount" name="amount" class="form-control">
+                  <input type="text" [(ngModel)]="amount_sell" name="amount_sell" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>Address</label>
-                  <input type="text" [(ngModel)]="address" name="address" class="form-control">
+                  <label>Your Address</label>
+                  <input type="text" [(ngModel)]="address_sell" name="address_sell" class="form-control">
                 </div>
-                <!-- <div class="form-group">
-                  <label>Email</label>
-                  <input type="text" [(ngModel)]="email" name="email" class="form-control" >
-                </div> -->
                 <div class="form-group">
-                  <label>Comment</label>
-                  <input type="comment" [(ngModel)]="comment" name="comment" class="form-control">
+                  <label>Transaction ID</label>
+                  <input type="text" [(ngModel)]="transaction_id" name="transaction_id" class="form-control">
                 </div>
                 <input type="submit" class="btn btn-info btn-block ks-active" value="Sell">
               </form>
               <!-- <a href="#" class="btn btn-info-outline btn-block">Start free trial</a> -->
             </div>
           </div>
+
+          <div class="ks-subscription">
+            <div class="ks-header">
+              <!-- <span class="ks-name">Startup</span> -->
+                                    <span class="ks-price">
+                                        <span class="ks-amount">Transfer Your INRT</span>
+                                    </span>
+            </div>
+            <div class="ks-body">
+              <form #userForm3="ngForm" (submit)="sellToken(userForm.value)">
+                <div class="form-group">
+                  <label>Amount</label>
+                  <input type="text" [(ngModel)]="trasfer_amount" name="trasfer_amount" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>To Address</label>
+                  <input type="text" [(ngModel)]="to_address" name="to_address" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Comment</label>
+                  <input type="text" [(ngModel)]="transfer_comment" name="transfer_comment" class="form-control">
+                </div>
+                <input type="submit" class="btn btn-info btn-block ks-active" value="Transfer">
+              </form>
+              <!-- <a href="#" class="btn btn-info-outline btn-block">Start free trial</a> -->
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
