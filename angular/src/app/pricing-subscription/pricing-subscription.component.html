@@ -159,7 +159,7 @@
                                     </span>
             </div>
             <div class="ks-body">
-              <form #userForm2="ngForm" (submit)="sellToken(userForm.value)">
+              <form #userForm2="ngForm" (submit)="sellToken(userForm2.value)">
                 <div class="form-group">
                   <label>Amount</label>
                   <input type="text" [(ngModel)]="amount_sell" name="amount_sell" class="form-control">
@@ -169,8 +169,8 @@
                   <input type="text" [(ngModel)]="address_sell" name="address_sell" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>Transaction ID</label>
-                  <input type="text" [(ngModel)]="transaction_id" name="transaction_id" class="form-control">
+                  <label>comment</label>
+                  <input type="text" [(ngModel)]="comment_sell" name="comment_sell" class="form-control">
                 </div>
                 <input type="submit" class="btn btn-info btn-block ks-active" value="Sell">
               </form>
@@ -186,14 +186,14 @@
                                     </span>
             </div>
             <div class="ks-body">
-              <form #userForm3="ngForm" (submit)="sellToken(userForm.value)">
+              <form #userForm3="ngForm" (submit)="transferToken(userForm3.value)">
                 <div class="form-group">
                   <label>Amount</label>
                   <input type="text" [(ngModel)]="trasfer_amount" name="trasfer_amount" class="form-control">
                 </div>
                 <div class="form-group">
                   <label>To Address</label>
-                  <input type="text" [(ngModel)]="to_address" name="to_address" class="form-control">
+                  <input type="text" [(ngModel)]="trasfer_to_address" name="trasfer_to_address" class="form-control">
                 </div>
                 <div class="form-group">
                   <label>Comment</label>

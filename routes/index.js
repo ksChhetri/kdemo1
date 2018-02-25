@@ -14,6 +14,9 @@ var ctrlProfile = require('../controllers/profile');
 router.get('/profile', auth, ctrlProfile.profileRead);
 
 router.post('/transactions/buyToken', ctrlTransaction.buyToken);
+router.post('/transactions/sellToken', ctrlTransaction.sellToken);
+router.post('/transactions/transferToken', ctrlTransaction.transferToken);
+
 router.get('/transactions/history', ctrlTransaction.getHistory);
 
 // authentication

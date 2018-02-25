@@ -19,9 +19,8 @@ var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 //InrtTokenContract.setProvider(web3);
 
 //console.log(InrtTokenJSON.abi);
-
-var contractAbi = web3.eth.contract(InrtTokenJSON.abi);
-var InrtTokenContract = contractAbi.at("0xD57045EDe87d81b7DC4126D9cF946CB0393CB425");
+var inrtTokenContractAddress = "0xD57045EDe87d81b7DC4126D9cF946CB0393CB425";
+var InrtTokenContract = web3.eth.contract(InrtTokenJSON.abi).at(inrtTokenContractAddress);
 
 module.exports.buyToken = function(req, res) {
   console.log(req.body);
@@ -78,8 +77,53 @@ module.exports.buyToken = function(req, res) {
   // });
 };
 
+
+module.exports.sellToken = function(req, res) {
+  var _address = req.body.data.address_sell;
+  var _amount = req.body.data.amount_sell;
+  var _userid = req.body.user_details.email;
+
+  let sellToken = new Transaction({
+    userId: _userid,
+    address: _address,
+    amount: _amount,
+    status: 0
+  });
+
+  Transaction.sellToken(sellToken, (err, data) => {
+      if (err) {
+        res.json({success: false, msg: 'Failed To Create Order'});
+      } else {
+        res.json({success: true, msg: "Sell order Created", data: data, tokenContractAbi: InrtTokenJSON.abi,
+         tokenContractAddress: inrtTokenContractAddress, toAddress : "0x84A3231874cF31ad1272932b71aBA0F0a0e0AF00"});
+      }
+  });
+};
+
+module.exports.transferToken = function(req, res) {
+  var _address = req.body.data.trasfer_to_address;
+  var _amount = req.body.data.trasfer_amount;
+  var _userid = req.body.user_details.email;
+
+  let transferToken = new Transaction({
+    userId: _userid,
+    address: _address,
+    amount: _amount,
+    status: 0
+  });
+
+  Transaction.transferToken(transferToken, (err, data) => {
+      if (err) {
+        res.json({success: false, msg: 'Failed To Create Order'});
+      } else {
+        res.json({success: true, msg: "Transfer token order created", data: data, tokenContractAbi: InrtTokenJSON.abi,
+         tokenContractAddress: inrtTokenContractAddress, toAddress : _address});
+      }
+  });
+};
+
 module.exports.getHistory = function(req, res) {
-  console.log("asds");
+  console.log("getHistory");
   Transaction.getHistory((err, data) => {
       if (err) {
         res.json({success: false, msg: 'Failed To Get History'});

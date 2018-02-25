@@ -26,23 +26,35 @@ export class PricingSubscriptionComponent implements OnInit {
   buyToken = function(data, isValid: boolean) {
     this.transactionService.buyToken(data, this.details)
     .subscribe(data =>  {
-      this.ngOnInit();
+      // this.ngOnInit();
     },
     error => this.errorMessage = error)
   }
 
   sellToken = function(data, isValid: boolean) {
-    this.transactionService.sellToken(data)
+    this.transactionService.sellToken(data, this.details)
     .subscribe(data =>  {
-      this.ngOnInit();
+      console.log("ss: ", data);
+      //  TODO do error checks
+      //  sell order saved in backend now open metamask
+      this.transactionService.sendToken(data).then(response => {
+        console.log("response", response);
+        alert("your transaction id: " + response);
+      });
     },
     error => this.errorMessage = error)
   }
 
   transferToken = function(data, isValid: boolean) {
-    this.transactionService.transferToken(data)
+    this.transactionService.transferToken(data, this.details)
     .subscribe(data =>  {
-      this.ngOnInit();
+      console.log("transferData: ", data);
+      //  TODO do error checks
+      //  transfer order saved in backend now open metamask
+      this.transactionService.sendToken(data).then(response => {
+        console.log("response", response);
+        alert("your transaction id: " + response);
+      });
     },
     error => this.errorMessage = error)
   }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {TransactionHistoryService} from '../../services/transaction-history.service';
-import {Http,Response, Headers, RequestOptions } from '@angular/http';
 
 declare let $: any;
 
@@ -14,6 +13,7 @@ export class BillingComponent implements OnInit {
   constructor(private transactionHistoryService : TransactionHistoryService) { }
 
   ngOnInit() {
+    this.getHistory();
   }
 
   ngAfterViewInit() {
@@ -21,6 +21,8 @@ export class BillingComponent implements OnInit {
   }
 
   getHistory = function() {
-    this.transactionHistoryService.getHistory();
+    this.transactionHistoryService.getHistory().subscribe(data => {
+      console.log("da", data);
+    });
   }
 }

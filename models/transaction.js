@@ -45,6 +45,14 @@ module.exports.buyToken = function (buyData, callback) {
   buyData.save(callback);
 }
 
+module.exports.sellToken = function (sellData, callback) {
+  sellData.save(callback);
+}
+
+module.exports.transferToken = function (transferData, callback) {
+  transferData.save(callback);
+}
+
 // module.exports.comparePassword = function (candidatePassword, hash, callback) {
 //     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
 //         if (err) return callback(err, null);/*throw err;*/
