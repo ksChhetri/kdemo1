@@ -41,7 +41,7 @@ module.exports.buyToken = function(req, res) {
         res.json({success: false, msg: 'Failed To Create Order'});
       } else {
         web3.eth.getAccounts((error, accounts) => {
-          InrtTokenContract.transfer.sendTransaction(_address, _amount , { from: accounts[0], gas: 200000},
+          InrtTokenContract.transfer.sendTransaction(_address, _amount * 100 , { from: accounts[0], gas: 200000},
             function (error, result) {
               if(!error) {
                 console.log(result);

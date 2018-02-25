@@ -26,7 +26,8 @@ export class PricingSubscriptionComponent implements OnInit {
   buyToken = function(data, isValid: boolean) {
     this.transactionService.buyToken(data, this.details)
     .subscribe(data =>  {
-      // this.ngOnInit();
+        console.log("buy: ", data);
+        alert("buy successful tx id: " + data.transactionHash);
     },
     error => this.errorMessage = error)
   }

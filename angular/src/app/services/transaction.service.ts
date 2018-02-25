@@ -64,7 +64,7 @@ export class TransactionService {
       var _amount = data.data.amount;
       var _toAddress = data.toAddress;
 
-      _tokenContract.transfer.sendTransaction(_toAddress, _amount, {
+      _tokenContract.transfer.sendTransaction(_toAddress, _amount * 100, {
           from: account,
           gas: 60000
         }, function (err, result) {
