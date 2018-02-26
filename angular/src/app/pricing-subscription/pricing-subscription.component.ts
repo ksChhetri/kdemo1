@@ -59,4 +59,16 @@ export class PricingSubscriptionComponent implements OnInit {
     },
     error => this.errorMessage = error)
   }
+
+  omit_special_char(event){
+      var k;
+      k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+      return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    }
+
+  take_special_char(event){
+      var l;
+      l = event.charCode;  //         k = event.keyCode;  (Both can be used)
+      return((l > 64 && l < 91) || (l > 96 && l < 123) || l == 8 || l == 32 || (l >= 48 && l <= 57) || l==46);
+    }
 }
