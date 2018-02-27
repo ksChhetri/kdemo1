@@ -106,15 +106,15 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    setTimeout(function () {
-      new Noty({
-        text: '<strong>Welcome to Kosmo Admin Template</strong>! <br> You successfully read this important alert message.',
-        type   : 'information',
-        theme  : 'mint',
-        layout : 'topRight',
-        timeout: 3000
-      }).show();
-    }, 1500);
+    // setTimeout(function () {
+    //   new Noty({
+    //     text: '<strong>Welcome to Kosmo Admin Template</strong>! <br> You successfully read this important alert message.',
+    //     type   : 'information',
+    //     theme  : 'mint',
+    //     layout : 'topRight',
+    //     timeout: 3000
+    //   }).show();
+    // }, 1500);
 
     var maplace = new Maplace({
       map_div: '#ks-payment-widget-table-and-map-map',

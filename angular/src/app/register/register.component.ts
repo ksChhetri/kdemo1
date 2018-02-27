@@ -21,10 +21,16 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.auth.register(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/');
+      // this.router.navigateByUrl('/dashboard');
+      this.refresh();
     }, (err) => {
       console.error(err);
     });
+  }
+
+  refresh(): void {
+    window.location.href = '/dashboard';
+    // window.location.reload();
   }
 
   ngOnInit() {

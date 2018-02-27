@@ -20,13 +20,19 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.auth.login(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/');
+      // this.router.navigateByUrl('/dashboard');
+      this.refresh();
     }, (err) => {
       console.error(err);
     });
   }
 
   ngOnInit() {
+  }
+
+  refresh(): void {
+    window.location.href = '/dashboard';
+    // window.location.reload();
   }
 
   ngAfterViewInit() {

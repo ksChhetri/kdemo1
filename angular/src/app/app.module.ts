@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BusyModule} from 'angular2-busy';
 
 import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
@@ -92,7 +92,7 @@ import { BillingComponent } from './payment/billing/billing.component';
     FormsModule,
     HttpModule,
     SharedModule,
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     BusyModule,
     HttpClientModule,
     RouterModule.forRoot([
@@ -116,6 +116,7 @@ import { BillingComponent } from './payment/billing/billing.component';
       },
       { path: 'history', component: BillingComponent, canActivate: [AuthGuardService] },
       { path: 'order', component: PricingSubscriptionComponent, canActivate: [AuthGuardService] },
+      { path: 'dashboard', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
       { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService] }
 
       // { path: 'calendar', component: CalendarAppComponent },

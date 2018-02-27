@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 var Web3 = require('web3');
+var Web3Utils = require('web3-utils');
 var contract = require("truffle-contract");
 var path = require('path');
 var InrtTokenJSON  = require(path.join(__dirname, '../build/contracts/InrtToken.json'));
@@ -23,17 +24,28 @@ var inrtTokenContractAddress = "0xD57045EDe87d81b7DC4126D9cF946CB0393CB425";
 var InrtTokenContract = web3.eth.contract(InrtTokenJSON.abi).at(inrtTokenContractAddress);
 
 module.exports.buyToken = function(req, res) {
-  console.log(req.body);
-
   var _address = req.body.data.address;
   var _amount = req.body.data.amount;
   var _userid = req.body.user_details.email;
+
+  if (!_address || !_amount || !_userid) {
+     // return error
+     res.json({success: false, msg: 'invalid data'});
+     return;
+  }
+
+  if (!Web3Utils.isAddress(_address)) {
+     // return error
+     res.json({success: false, msg: 'invalid address'});
+     return;
+  }
 
   let buyToken = new Transaction({
     userId: _userid,
     address: _address,
     amount: _amount,
-    status: 0
+    t_type: 'buy',
+    status: -1
   });
 
   Transaction.buyToken(buyToken, (err, data) => {
@@ -41,13 +53,20 @@ module.exports.buyToken = function(req, res) {
         res.json({success: false, msg: 'Failed To Create Order'});
       } else {
         web3.eth.getAccounts((error, accounts) => {
-          InrtTokenContract.transfer.sendTransaction(_address, _amount * 100 , { from: accounts[0], gas: 200000},
+          if (error) {
+            res.json({success: false, msg: "Unexpected server error: account"});
+            return;
+          }
+
+          InrtTokenContract.transfer.sendTransaction(_address, _amount * 100 , { from: accounts[0], gas: 100000},
             function (error, result) {
               if(!error) {
-                console.log(result);
+                buyToken.status = 1;
+                Transaction.updateStatus(buyToken, (err, data) => {
+                  console.log("us: " , data);
+                });
                 res.json({success: true, msg: "INRT sent to your address", transactionHash: result});
               } else {
-                console.log(error);
                 res.json({success: false, msg: "Failed To Send INRT"});
               }
             }
@@ -83,10 +102,23 @@ module.exports.sellToken = function(req, res) {
   var _amount = req.body.data.amount_sell;
   var _userid = req.body.user_details.email;
 
+  if (!_address || !_amount || !_userid) {
+     // return error
+     res.json({success: false, msg: 'invalid data'});
+     return;
+  }
+
+  if (!Web3Utils.isAddress(_address)) {
+     // return error
+     res.json({success: false, msg: 'invalid address'});
+     return;
+  }
+
   let sellToken = new Transaction({
     userId: _userid,
     address: _address,
     amount: _amount,
+    t_type: 'sell',
     status: 0
   });
 
@@ -95,7 +127,7 @@ module.exports.sellToken = function(req, res) {
         res.json({success: false, msg: 'Failed To Create Order'});
       } else {
         res.json({success: true, msg: "Sell order Created", data: data, tokenContractAbi: InrtTokenJSON.abi,
-         tokenContractAddress: inrtTokenContractAddress, toAddress : "0x84A3231874cF31ad1272932b71aBA0F0a0e0AF00"});
+        tokenContractAddress: inrtTokenContractAddress, toAddress : "0x84A3231874cF31ad1272932b71aBA0F0a0e0AF00"});
       }
   });
 };
@@ -105,10 +137,23 @@ module.exports.transferToken = function(req, res) {
   var _amount = req.body.data.trasfer_amount;
   var _userid = req.body.user_details.email;
 
+  if (!_address || !_amount || !_userid) {
+     // return error
+     res.json({success: false, msg: 'invalid data'});
+     return;
+  }
+
+  if (!Web3Utils.isAddress(_address)) {
+     // return error
+     res.json({success: false, msg: 'invalid address'});
+     return;
+  }
+
   let transferToken = new Transaction({
     userId: _userid,
     address: _address,
     amount: _amount,
+    t_type: 'transfer',
     status: 0
   });
 

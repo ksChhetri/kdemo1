@@ -20,6 +20,10 @@ const TransactionSchema = mongoose.Schema({
        type: Date,
        default: Date.now
     },
+    t_type: {
+      type: String,
+      require: true
+    },
     status: {
       type: Number,
       require: true
@@ -28,18 +32,9 @@ const TransactionSchema = mongoose.Schema({
 
 const Transaction = module.exports = mongoose.model('Transaction', TransactionSchema);
 
-// module.exports.getUserById = function (id, callback) {
-//     User.findById(id, callback);
-// }
 module.exports.getHistory = function (callback) {
     Transaction.find({}, callback);
 }
-
-//
-// module.exports.getUserByUsername = function (username, callback) {
-//     const query = { username: username }
-//     User.findOne(query, callback);
-// }
 
 module.exports.buyToken = function (buyData, callback) {
   buyData.save(callback);
@@ -53,9 +48,6 @@ module.exports.transferToken = function (transferData, callback) {
   transferData.save(callback);
 }
 
-// module.exports.comparePassword = function (candidatePassword, hash, callback) {
-//     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-//         if (err) return callback(err, null);/*throw err;*/
-//         callback(null, isMatch);
-//     });
-// }
+module.exports.updateStatus = function (data, callback) {
+  data.update(callback);
+}

@@ -20,16 +20,18 @@
                 <thead>
                 <tr>
                   <th>Date</th>
+                  <th>Type</th>
                   <th>Amount</th>
+                  <th>Status</th>
                   <th>Address</th>
-<!--                   <th>Amount</th>
-                  <th>Invoice</th> -->
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor = "let cell of data">
                   <td>{{ cell.date }}</td>
+                  <td>{{ cell.t_type }}</td>
                   <td>{{ cell.amount }}</td>
+                  <td>{{ cell.status }}</td>
                   <td>{{ cell.address }}</td>
                   <!-- <td class="ks-status"><span class="ks-color-danger">Failed <span class="la la-warning ks-icon"></span></span></td>
                   <td>$1,119.00</td>

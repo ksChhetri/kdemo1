@@ -29,6 +29,10 @@ export class PricingSubscriptionComponent implements OnInit {
     this.transactionService.buyToken(data, this.details)
     .subscribe(data =>  {
         console.log("buy: ", data);
+        if (!data.success) {
+          alert("buy unsuccessful: " + data.msg);
+          return;
+        }
         alert("buy successful tx id: " + data.transactionHash);
     },
     error => this.errorMessage = error)
@@ -37,11 +41,13 @@ export class PricingSubscriptionComponent implements OnInit {
   sellToken = function(data, isValid: boolean) {
     this.transactionService.sellToken(data, this.details)
     .subscribe(data =>  {
-      console.log("ss: ", data);
-      //  TODO do error checks
-      //  sell order saved in backend now open metamask
+      console.log("sell: ", data);
+      if (!data.success) {
+        alert("sell unsuccessful: " + data.msg);
+        return;
+      }
+        //  sell order saved in backend now open metamask
       this.transactionService.sendToken(data).then(response => {
-        console.log("response", response);
         alert("your transaction id: " + response);
       });
     },
@@ -51,8 +57,11 @@ export class PricingSubscriptionComponent implements OnInit {
   transferToken = function(data, isValid: boolean) {
     this.transactionService.transferToken(data, this.details)
     .subscribe(data =>  {
-      console.log("transferData: ", data);
-      //  TODO do error checks
+      console.log("transfer: ", data);
+      if (!data.success) {
+        alert("transfer unsuccessful: " + data.msg);
+        return;
+      }
       //  transfer order saved in backend now open metamask
       this.transactionService.sendToken(data).then(response => {
         console.log("response", response);
