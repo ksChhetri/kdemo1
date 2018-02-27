@@ -5,6 +5,8 @@ import {Http,Response, Headers, RequestOptions } from '@angular/http';
 
 import { AuthenticationService, UserDetails } from '../services/authentication.service';
 
+declare let $: any;
+
 @Component({
   selector: 'app-pricing-subscription',
   templateUrl: './pricing-subscription.component.html',
@@ -71,4 +73,11 @@ export class PricingSubscriptionComponent implements OnInit {
       l = event.charCode;  //         k = event.keyCode;  (Both can be used)
       return((l > 64 && l < 91) || (l > 96 && l < 123) || l == 8 || l == 32 || (l >= 48 && l <= 57) || l==46);
     }
+
+  ngAfterViewInit() {
+    $.validate({
+      modules : 'location, date, security, file, validate_strength'
+    });
+    $('#ks-maxlength-area').restrictLength($('#ks-maxlength-label'));
+  }
 }

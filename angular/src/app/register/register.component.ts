@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService, TokenPayload } from '../services/authentication.service';
 import { Router } from '@angular/router';
 
+declare let $: any;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -26,5 +28,12 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    $.validate({
+      modules : 'location, date, security, file, validate_strength'
+    });
+    $('#ks-maxlength-area').restrictLength($('#ks-maxlength-label'));
   }
 }
