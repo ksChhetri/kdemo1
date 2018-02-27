@@ -9,6 +9,7 @@ declare let $: any;
   styleUrls: ['../../../assets/styles/payment/billing.min.css']
 })
 export class BillingComponent implements OnInit {
+  private data;
 
   constructor(private transactionHistoryService : TransactionHistoryService) { }
 
@@ -23,6 +24,7 @@ export class BillingComponent implements OnInit {
   getHistory = function() {
     this.transactionHistoryService.getHistory().subscribe(data => {
       console.log("da", data);
+      this.data=data.msg;
     });
   }
 }

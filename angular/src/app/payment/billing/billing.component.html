@@ -19,24 +19,25 @@
               <table class="table">
                 <thead>
                 <tr>
-                  <th>Date submitted</th>
-                  <th>Order number</th>
-                  <th>Status</th>
+                  <th>Date</th>
                   <th>Amount</th>
-                  <th>Invoice</th>
+                  <th>Address</th>
+<!--                   <th>Amount</th>
+                  <th>Invoice</th> -->
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Sep 29, 2016 12:26 PM</td>
-                  <td>VSR000000001221</td>
-                  <td class="ks-status"><span class="ks-color-danger">Failed <span class="la la-warning ks-icon"></span></span></td>
+                <tr *ngFor = "let cell of data">
+                  <td>{{ cell.date }}</td>
+                  <td>{{ cell.amount }}</td>
+                  <td>{{ cell.address }}</td>
+                  <!-- <td class="ks-status"><span class="ks-color-danger">Failed <span class="la la-warning ks-icon"></span></span></td>
                   <td>$1,119.00</td>
                   <td class="ks-download">
                     <a href="#"><span class="la la-file-pdf-o ks-icon"></span> Download</a>
-                  </td>
+                  </td> -->
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>Sep 29, 2016 12:26 PM</td>
                   <td>VSR000000001221</td>
                   <td class="ks-status"><span class="ks-color-success">Paid</span></td>
@@ -197,7 +198,7 @@
                   <td class="ks-download">
                     <a href="#"><span class="la la-file-pdf-o ks-icon"></span> Download</a>
                   </td>
-                </tr>
+                </tr> -->
                 </tbody>
               </table>
             </div>
