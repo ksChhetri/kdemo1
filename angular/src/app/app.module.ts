@@ -106,9 +106,9 @@ import { BillingComponent } from './payment/billing/billing.component';
           { path: '', redirectTo: 'general', pathMatch: 'full' },
           { path: 'general', component: UserSettingsGeneralComponent },
           { path: 'contact-info', component: UserSettingsContactInfoComponent },
-          { path: 'experience', component: UserSettingsExperienceComponent },
-          { path: 'education', component: UserSettingsEducationComponent },
-          { path: 'organizations', component: UserSettingsOrganizationsComponent },
+          //{ path: 'experience', component: UserSettingsExperienceComponent },
+          //{ path: 'education', component: UserSettingsEducationComponent },
+          //{ path: 'organizations', component: UserSettingsOrganizationsComponent },
           { path: 'notifications', component: UserSettingsNotificationsComponent },
           { path: 'billing', component: UserSettingsBillingComponent }
         ],
