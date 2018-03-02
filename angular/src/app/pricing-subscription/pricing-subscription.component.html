@@ -1,5 +1,5 @@
-<div class="ks-page-header">
-  <section class="ks-title">
+<!-- <div class="ks-page-header">
+  <section class="ks-title"> -->
     <!-- <h3>Subscriptions</h3> -->
     <!-- <h3>Pricing Subscriptions</h3> -->
 
@@ -12,11 +12,11 @@
         <span class="breadcrumb-item active" href="#">Subscriptions</span>
       </nav>
     </div> -->
-  </section>
-</div>
+<!--   </section>
+</div> -->
 <div class="ks-page-content">
   <div class="ks-page-content-body ks-full-height">
-    <div class="ks-nav-body-wrapper">
+    <div class="ks-nav-body-wrapper" style="margin-top: -70px;">
       <div class="ks-pricing-subscriptions-page">
         <div class="ks-header">
           <h3 class="ks-name">Buy or Sell</h3>
@@ -85,7 +85,7 @@
               <form #userForm="ngForm" (submit)="buyToken(userForm.value)">
                 <div class="form-group">
                   <label>Amount</label>
-                  <input type="text" required [(ngModel)]="amount" name="amount" class="form-control" data-validation="number" data-validation-allowing="range[0;10000]" data-validation-error-msg="Amount can be between 0 - 10000 only.">
+                  <input type="text" required [(ngModel)]="amount" name="amount" class="form-control" data-validation="number" data-validation-allowing="range[0;10000]" data-validation-error-msg="Amount can be between 0 - 10000 only." maxlength="5" (keypress) = "omit_special_char($event)">
                 </div>
                 <div class="form-group">
                   <label>Your Ether address</label>
@@ -164,7 +164,7 @@
               <form #userForm2="ngForm" (submit)="sellToken(userForm2.value)">
                 <div class="form-group">
                   <label>Amount</label>
-                  <input type="text" required [(ngModel)]="amount_sell" name="amount_sell" class="form-control" data-validation="number" data-validation-allowing="range[0;10000]" data-validation-error-msg="Amount can be between 0 - 10000 only.">
+                  <input type="text" required [(ngModel)]="amount_sell" name="amount_sell" class="form-control" data-validation="number" data-validation-allowing="range[0;10000]" data-validation-error-msg="Amount can be between 0 - 10000 only." maxlength="5" (keypress) = "omit_special_char($event)">
                 </div>
                 <div class="form-group">
                   <label>Your Address</label>
@@ -192,7 +192,7 @@
               <form #userForm3="ngForm" (submit)="transferToken(userForm3.value)">
                 <div class="form-group">
                   <label>Amount</label>
-                  <input type="text" required [(ngModel)]="trasfer_amount" name="trasfer_amount" class="form-control" data-validation="number" data-validation-allowing="range[0;10000]" data-validation-error-msg="Amount can be between 0 - 10000 only.">
+                  <input type="text" required [(ngModel)]="trasfer_amount" name="trasfer_amount" class="form-control" data-validation="number" data-validation-allowing="range[0;10000]" data-validation-error-msg="Amount can be between 0 - 10000 only." maxlength="5" (keypress) = "omit_special_char($event)">
                 </div>
                 <div class="form-group">
                   <label>To Address</label>
