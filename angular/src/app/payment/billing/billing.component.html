@@ -1,6 +1,6 @@
 <div class="ks-page-header">
   <section class="ks-title">
-    <h3>Billing</h3>
+    <h3>Buy, Sell and Transfer History</h3>
   </section>
 </div>
 
@@ -11,13 +11,13 @@
         <div class="row">
           <div class="col-xl-12">
             <div class="ks-log-table">
-              <h3 class="ks-header">
+              <!-- <h3 class="ks-header">
                 <span>History</span>
                 <a href="#">View All</a>
-              </h3>
+              </h3> -->
 
-              <table class="table">
-                <thead>
+              <table class="table table-condensed table-bordered table-striped">
+                <!-- <thead> -->
                 <tr>
                   <th>Date</th>
                   <th>Type</th>
@@ -25,8 +25,8 @@
                   <th>Status</th>
                   <th>Address</th>
                 </tr>
-                </thead>
-                <tbody>
+                <!-- </thead> -->
+                <!-- <tbody> -->
                 <tr *ngFor = "let cell of data">
                   <td>{{ cell.date }}</td>
                   <td>{{ cell.t_type }}</td>
@@ -40,7 +40,7 @@
                     <a href="#"><span class="la la-file-pdf-o ks-icon"></span> Download</a>
                   </td> -->
                 </tr>
-                </tbody>
+                <!-- </tbody> -->
               </table>
             </div>
           </div>
