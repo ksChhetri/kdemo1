@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var passport = require('passport');
 var User = mongoose.model('User');
+var UserProfile = mongoose.model('UserProfile');
 
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
@@ -15,23 +16,33 @@ module.exports.register = function(req, res) {
   //   });
   //   return;
   // }
+  console.log('register data:',req.body);
 
   var user = new User();
 
-  user.name = req.body.name;
+  user.firstname = req.body.firstname;
+  user.lastname = req.body.lastname;
+  user.phone = req.body.phonenumber;
   user.email = req.body.email;
 
   user.setPassword(req.body.password);
 
   user.save(function(err) {
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
+    console.log("nuser",err, user);
+
+    var userProfile = new UserProfile({subdomain: user._id});
+    console.log("usepp", userProfile);
+
+    userProfile.save(function(err, newprofile) {
+      console.log("nuserppp",err, newprofile);
+      var token;
+      token = user.generateJwt();
+      res.status(200);
+      res.json({
+        "token" : token
+      });
     });
   });
-
 };
 
 module.exports.login = function(req, res) {

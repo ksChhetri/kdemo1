@@ -177,3 +177,41 @@ module.exports.getHistory = function(req, res) {
       }
   });
 };
+
+
+module.exports.getTotalSale = function(req, res) {
+  console.log("getTotalSale");
+  Transaction.getTotalSale((err, data) => {
+    console.log(err, data);
+      if (err) {
+        res.json({success: false, msg: 'Failed To Get History'});
+      } else {
+        res.json({success: true, msg: data});
+      }
+  });
+};
+
+module.exports.getTotalSaleToday = function(req, res) {
+  console.log("getTotalSaleToday");
+  Transaction.getTotalSaleToday((err, data) => {
+    console.log(err, data);
+      if (err) {
+        res.json({success: false, msg: 'Failed To Get History'});
+      } else {
+        res.json({success: true, msg: data});
+      }
+  });
+};
+
+
+module.exports.getCurrentUserSale = function(req, res) {
+  console.log("getCurrentUserSale");
+  Transaction.getCurrentUserSale(req.body.user_details._id ,(err, data) => {
+    console.log(err, data);
+      if (err) {
+        res.json({success: false, msg: 'Failed To Get History'});
+      } else {
+        res.json({success: true, msg: data});
+      }
+  });
+};

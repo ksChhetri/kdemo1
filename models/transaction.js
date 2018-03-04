@@ -16,9 +16,9 @@ const TransactionSchema = mongoose.Schema({
       type: String,
       require: true
     },
-    date: {
-       type: Date,
-       default: Date.now
+    timestamps: {
+       type: Number,
+       default: new Date().getTime()
     },
     t_type: {
       type: String,
@@ -28,12 +28,15 @@ const TransactionSchema = mongoose.Schema({
       type: Number,
       require: true
     }
+}, {
+    timestamps: true
 });
 
 const Transaction = module.exports = mongoose.model('Transaction', TransactionSchema);
 
 module.exports.getHistory = function (callback) {
-    Transaction.find({}, callback);
+  // Transaction.remove({}, callback);
+  Transaction.find({}, callback);
 }
 
 module.exports.buyToken = function (buyData, callback) {
@@ -50,4 +53,43 @@ module.exports.transferToken = function (transferData, callback) {
 
 module.exports.updateStatus = function (data, callback) {
   data.update(callback);
+}
+
+module.exports.getTotalSale = function (callback) {
+  Transaction.aggregate([{
+    $match : { status : 0 },
+  },{
+    $group : {
+        _id : null,
+        total : {
+            $sum : "$amount"
+        }
+    }
+  }],callback);
+}
+
+module.exports.getTotalSaleToday = function (callback) {
+  Transaction.aggregate([{
+    $match : { timestamps: { $gt: (Date.now() - 24*60*60) } },
+  },{
+    $group : {
+        _id : null,
+        total : {
+            $sum : "$amount"
+        }
+    }
+  }],callback);
+}
+
+module.exports.getCurrentUserSale = function (_id, callback) {
+  Transaction.aggregate([{
+    $match : { userId: _id },
+  },{
+    $group : {
+        _id : null,
+        total : {
+            $sum : "$amount"
+        }
+    }
+  }],callback);
 }

@@ -20,6 +20,7 @@
     "passport-jwt": "*",
     "passport-local": "^1.0.0",
     "truffle-contract": "^3.0.3",
+    "underscore-node": "^0.1.2",
     "web3-utils": "^1.0.0-beta.30"
   },
   "author": "Chhetri Kb",
