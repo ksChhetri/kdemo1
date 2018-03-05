@@ -45,7 +45,7 @@ module.exports.buyToken = function(req, res) {
     address: _address,
     amount: _amount,
     t_type: 'buy',
-    status: -1
+    status: 1
   });
 
   Transaction.buyToken(buyToken, (err, data) => {
