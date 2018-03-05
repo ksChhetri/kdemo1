@@ -10,12 +10,25 @@ module.exports.profileRead = function(req, res) {
       "message" : "UnauthorizedError: private profile"
     });
   } else {
+    profile_res = {};
     User
       .findById(req.payload._id)
       .exec(function(err, user) {
-        UserProfile.find({ 'userId': req.payload._id })
+        console.log("user: ", err, user);
+        if (user) {
+          profile_res.firstname = user.firstname;
+          profile_res.lastname = user.lastname;
+          profile_res.phone = user.phone;
+          profile_res.email = user.email;
+        }
+
+        UserProfile.find({ 'subdomain': req.payload._id })
         .exec(function(err, profile) {
-          res.status(200).json(user, profile);
+          console.log("profile: ", err, profile);
+          if (profile) {
+            profile_res.profile = profile;
+          }
+          res.status(200).json(profile_res);
         });
       });
   }
@@ -29,11 +42,12 @@ module.exports.profileUpdate = function(req, res) {
   //   });
   //   return;
   // }
-  console.log('profile data:',req.body);
+  console.log('profile data:',req.body, req.payload);
 
-  if (!req.body._id) {
-     res.status(200).json({msg: "fail"});
-     return;
+  if (!req.payload._id) {
+    res.status(401).json({
+      "message" : "UnauthorizedError: private profile"
+    });
   }
 
   var userProfile = {};
@@ -64,9 +78,11 @@ module.exports.profileUpdate = function(req, res) {
   // if (!req.body.email)
   // user.email = req.body.email;
 
-  User.findByIdAndUpdate(req.body._id, { $set: user }, function(err, newuser) {
+  console.log("user", user, userProfile);
+
+  User.findByIdAndUpdate(req.payload._id, { $set: user }, function(err, newuser) {
     console.log("newuser", newuser);
-    UserProfile.update({ subdomain: req.body._id }, { $set: userProfile }, function(err, newuserProfile) {
+    UserProfile.update({ subdomain: req.payload._id }, { $set: userProfile }, function(err, newuserProfile) {
       res.status(200).json({msg: "success"});
     });
   });

@@ -213,7 +213,8 @@
     </div>
   </div>
 </div>
-<div id="ks-izi-modal-success"
+
+<div *ngIf="done" id="ks-izi-modal-success" [innerHTML]="popup_data"
      class="ks-izi-modal"
      data-iziModal-fullscreen="true"
      data-iziModal-title="Sell your INRT"
@@ -222,5 +223,5 @@
      data-iziModal-padding="20"
      data-iziModal-autoopen="false"
      data-iziModal-headercolor="#2ecc71">
-  Thank You for submitting, your transaction is successful.
+  Thank You for submitting
 </div>

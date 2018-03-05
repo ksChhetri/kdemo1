@@ -28,12 +28,14 @@
                 <!-- </thead> -->
                 <!-- <tbody> -->
                 <tr *ngFor = "let cell of data">
-                  <td style="border: 1px solid #ddd;">{{ cell.date }}</td>
+                  <td style="border: 1px solid #ddd;">{{ cell.createdAt | date : "dd-MM-yyyy" }}</td>
                   <td style="border: 1px solid #ddd;text-align: center;">{{ cell.t_type }}</td>
                   <td style="border: 1px solid #ddd;">{{ cell.address }}</td>
                   <td style="border: 1px solid #ddd;text-align: center;">{{ cell.amount }}</td>
                   <!-- <td>{{ cell.status }}</td> -->
-                  <td style="border: 1px solid #ddd;text-align: center;" class="ks-status"><span class="ks-color-danger" *ngIf="cell.status==0">Failed<span class="la la-warning ks-icon"></span></span><span class="ks-color-success" *ngIf="cell.status==1">Passed</span></td>
+                  <td style="border: 1px solid #ddd;text-align: center;" class="ks-status">
+                    <span class="ks-color-danger" *ngIf="cell.status==0 || cell.status == -1">Failed<span class="la la-warning ks-icon"></span></span>
+                    <span class="ks-color-success" *ngIf="cell.status==1">Passed</span></td>
                   <!-- <td class="ks-status"><span class="ks-color-danger">Failed <span class="la la-warning ks-icon"></span></span></td>
                   <td>$1,119.00</td>
                   <td class="ks-download">

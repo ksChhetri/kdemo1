@@ -184,9 +184,12 @@ module.exports.getTotalSale = function(req, res) {
   Transaction.getTotalSale((err, data) => {
     console.log(err, data);
       if (err) {
-        res.json({success: false, msg: 'Failed To Get History'});
+        res.json({success: false, msg: 'Failed To Get History', total: -1});
       } else {
-        res.json({success: true, msg: data});
+        if (data.length > 0)
+          res.json({success: true, total: data[0].total});
+        else
+          res.json({success: true, total: 0});
       }
   });
 };
@@ -196,22 +199,29 @@ module.exports.getTotalSaleToday = function(req, res) {
   Transaction.getTotalSaleToday((err, data) => {
     console.log(err, data);
       if (err) {
-        res.json({success: false, msg: 'Failed To Get History'});
+        res.json({success: false, msg: 'Failed To Get History', total: -1});
       } else {
-        res.json({success: true, msg: data});
+        if (data.length > 0)
+          res.json({success: true, total: data[0].total});
+        else
+          res.json({success: true, total: 0});
       }
   });
 };
 
 
 module.exports.getCurrentUserSale = function(req, res) {
-  console.log("getCurrentUserSale");
+  console.log("getCurrentUserSale", req.body);
+
   Transaction.getCurrentUserSale(req.body.user_details._id ,(err, data) => {
     console.log(err, data);
-      if (err) {
-        res.json({success: false, msg: 'Failed To Get History'});
-      } else {
-        res.json({success: true, msg: data});
-      }
+    if (err) {
+      res.json({success: false, msg: 'Failed To Get History', total: -1});
+    } else {
+      if (data.length > 0)
+        res.json({success: true, total: data[0].total});
+      else
+        res.json({success: true, total: 0});
+    }
   });
 };

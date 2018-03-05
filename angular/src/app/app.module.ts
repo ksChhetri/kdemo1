@@ -103,7 +103,7 @@ import { BillingComponent } from './payment/billing/billing.component';
         path: 'profile',
         component: UserSettingsComponent,
         children: [
-          { path: '', redirectTo: 'general', pathMatch: 'full' },
+          { path: '', redirectTo: 'contact-info', pathMatch: 'full' },
           { path: 'general', component: UserSettingsGeneralComponent },
           { path: 'contact-info', component: UserSettingsContactInfoComponent },
           //{ path: 'experience', component: UserSettingsExperienceComponent },

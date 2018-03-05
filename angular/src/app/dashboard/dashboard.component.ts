@@ -20,7 +20,10 @@ declare var Noty: any;
 })
 export class DashboardComponent implements OnInit {
 
-  private data;
+  private totalSale;
+  private totalBuy;
+  private totalSaleToday;
+  private currentUserSale = 0;
 
   constructor(private scriptLoader: ScriptLoaderService,private transactionHistoryService : TransactionHistoryService) {
     this.scriptLoader.load('d3', 'c3', 'noty', 'maplace');
@@ -28,26 +31,26 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getTotalSale();
+    this.getTotalSaleToday();
+    this.getCurrentUserSale();
   }
 
   getTotalSale = function() {
     this.transactionHistoryService.getTotalSale().subscribe(data => {
-      console.log("da", data);
-      this.data=data.msg;
+      this.totalSale = data.total;
+      console.log("getTotalSale", this.totalSale);
     });
   }
 
   getTotalSaleToday = function() {
     this.transactionHistoryService.getTotalSaleToday().subscribe(data => {
-      console.log("da", data);
-      this.data=data.msg;
+      this.totalSaleToday = data.total;
     });
   }
 
   getCurrentUserSale = function() {
     this.transactionHistoryService.getCurrentUserSale().subscribe(data => {
-      console.log("da", data);
-      this.data=data.msg;
+      this.currentUserSale = data.total;
     });
   }
 

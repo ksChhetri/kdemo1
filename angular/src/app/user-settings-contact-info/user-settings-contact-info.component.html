@@ -1,24 +1,24 @@
-<form class="ks-form ks-settings-tab-form"> <!-- ks-uppercase ks-light -->
+<form #contactForm="ngForm" (submit)="updateDetails(contactForm.value)" class="ks-form ks-settings-tab-form"> <!-- ks-uppercase ks-light -->
   <h3 class="ks-form-main-header">Contact Info</h3>
 
   <div class="form-group row">
     <div class="col-lg-4">
       <label>First Name</label>
-      <input type="text" class="form-control" placeholder="">
+      <input type="text" class="form-control" placeholder="" value="{{details.firstname}}" name="firstname" [(ngModel)]="firstname">
     </div>
     <div class="col-lg-4">
       <label>Last Name</label>
-      <input type="text" class="form-control" placeholder="">
+      <input type="text" class="form-control" placeholder="" name = "lastname" value="{{details.lastname}}" [(ngModel)]="lastname">
     </div>
   </div>
   <div class="form-group row">
     <div class="col-lg-4">
       <label>Email</label>
-      <input type="email" class="form-control" placeholder="">
+      <input type="email" class="form-control" placeholder="" name="email" value="{{details.email}}" [(ngModel)]="email">
     </div>
     <div class="col-lg-4">
       <label>Phone Number</label>
-      <input type="text" class="form-control" placeholder="">
+      <input type="text" class="form-control" placeholder="" name="phone" value="{{details.phone}}" [(ngModel)]="phone">
     </div>
   </div>
   <div class="form-group row">
@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-lg-6">
           <label>Country</label>
-          <select class="ks-selectpicker form-control" data-live-search="true" appSelectable>
+          <select class="ks-selectpicker form-control" ng-init="country = country || details.profile[0].country" data-live-search="true" name="country" [(ngModel)]="country" appSelectable>
             <option value="AF">Afghanistan</option>
             <option value="AX">Åland Islands</option>
             <option value="AL">Albania</option>
@@ -280,7 +280,7 @@
         </div>
         <div class="col-lg-6">
           <label>City</label>
-          <input type="text" class="form-control" placeholder="">
+          <input type="text" class="form-control" placeholder="" value="{{details.profile[0].city}}" name="city" [(ngModel)]="city">
         </div>
       </div>
     </div>
@@ -288,7 +288,7 @@
       <div class="row">
         <div class="col-lg-6">
           <label>State/Province</label>
-          <select class="ks-selectpicker form-control" data-live-search="true" appSelectable>
+          <select class="ks-selectpicker form-control" data-live-search="true" name="state" [(ngModel)]="state" appSelectable>
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -344,7 +344,7 @@
         </div>
         <div class="col-lg-6">
           <label>Postal Code</label>
-          <input type="text" class="form-control" placeholder="">
+          <input type="text" class="form-control" placeholder="" value="{{details.profile[0].postal}}" name="postal" [(ngModel)]="postal">
         </div>
       </div>
     </div>
@@ -385,7 +385,7 @@
   </div> -->
   <div class="form-group row">
     <div class="col-lg-12">
-      <button type="button" class="btn btn-success">Save &amp; update</button>
+      <input type="submit" class="btn btn-success" value="Save &amp; update">
     </div>
   </div>
 </form>

@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthenticationService) { }
 
-  logout(){
-  	
+  logout() {
+    this.auth.logout();
+    window.location.href = '/';
   }
 
 

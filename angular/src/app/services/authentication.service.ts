@@ -67,11 +67,15 @@ export class AuthenticationService {
     }
   }
 
-  private request(method: 'post'|'get', type: 'login'|'register'|'profile', user?: TokenPayload): Observable<any> {
+  private request(method: 'post'|'get', type: 'login'|'register'|'profile'|'full_profile'|'update_profile', user?: TokenPayload): Observable<any> {
     let base;
 
     if (method === 'post') {
-      base = this.http.post(this._baseUrl + '/api/users/' + type, user);
+      if (type == 'update_profile') {
+         base = this.http.post(this._baseUrl + '/api/users/' + type, user, { headers: new HttpHeaders({ Authorization: `Bearer ${this.getToken()}` })});
+      } else {
+         base = this.http.post(this._baseUrl + '/api/users/' + type, user);
+      }
     } else {
       base = this.http.get(this._baseUrl + '/api/' + type, { headers: new HttpHeaders({ Authorization: `Bearer ${this.getToken()}` })});
     }
@@ -92,12 +96,21 @@ export class AuthenticationService {
     return this.request('post', 'register', user);
   }
 
+  public updateProfile(profile): Observable<any> {
+    console.log("up", profile);
+    return this.request('post', 'update_profile', profile);
+  }
+
   public login(user: TokenPayload): Observable<any> {
     return this.request('post', 'login', user);
   }
 
   public profile(): Observable<any> {
     return this.request('get', 'profile');
+  }
+
+  public fullProfile(): Observable<any> {
+    return this.request('get', 'full_profile');
   }
 
   public logout(): void {

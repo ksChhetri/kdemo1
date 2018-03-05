@@ -57,7 +57,8 @@ module.exports.updateStatus = function (data, callback) {
 
 module.exports.getTotalSale = function (callback) {
   Transaction.aggregate([{
-    $match : { status : 0 },
+    // $match : { status : 0 },
+    $match : { },
   },{
     $group : {
         _id : null,
@@ -70,7 +71,7 @@ module.exports.getTotalSale = function (callback) {
 
 module.exports.getTotalSaleToday = function (callback) {
   Transaction.aggregate([{
-    $match : { timestamps: { $gt: (Date.now() - 24*60*60) } },
+    $match : { timestamps: { $gt: (Date.now() - 24*60*60*1000) } },
   },{
     $group : {
         _id : null,
