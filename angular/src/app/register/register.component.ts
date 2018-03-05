@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   }
 
   refresh(): void {
-    window.location.href = '/dashboard';
+    window.location.href = '/login';
     // window.location.reload();
   }
 
