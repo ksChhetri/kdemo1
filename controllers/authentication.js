@@ -35,12 +35,18 @@ module.exports.register = function(req, res) {
 
     userProfile.save(function(err, newprofile) {
       console.log("nuserppp",err, newprofile);
+      if (err) {
+        res.status(200);
+        res.json({
+          "msg" : "failed"
+        });
+      }
       // var token;
       // token = user.generateJwt();
       res.status(200);
-      // res.json({
-      //   "token" : token
-      // });
+      res.json({
+        "msg" : "success"
+      });
     });
   });
 };
