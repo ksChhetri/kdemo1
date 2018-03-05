@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptLoaderService } from '../services/script-loader.service';
+import {TransactionHistoryService} from '../services/transaction-history.service';
 
 declare var c3: any;
 declare var Maplace: any;
@@ -19,12 +20,35 @@ declare var Noty: any;
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private scriptLoader: ScriptLoaderService) {
+  private data;
+
+  constructor(private scriptLoader: ScriptLoaderService,private transactionHistoryService : TransactionHistoryService) {
     this.scriptLoader.load('d3', 'c3', 'noty', 'maplace');
   }
 
   ngOnInit() {
+    this.getTotalSale();
+  }
 
+  getTotalSale = function() {
+    this.transactionHistoryService.getTotalSale().subscribe(data => {
+      console.log("da", data);
+      this.data=data.msg;
+    });
+  }
+
+  getTotalSaleToday = function() {
+    this.transactionHistoryService.getTotalSaleToday().subscribe(data => {
+      console.log("da", data);
+      this.data=data.msg;
+    });
+  }
+
+  getCurrentUserSale = function() {
+    this.transactionHistoryService.getCurrentUserSale().subscribe(data => {
+      console.log("da", data);
+      this.data=data.msg;
+    });
   }
 
   ngAfterViewInit() {
@@ -116,10 +140,10 @@ export class DashboardComponent implements OnInit {
     //   }).show();
     // }, 1500);
 
-    var maplace = new Maplace({
-      map_div: '#ks-payment-widget-table-and-map-map',
-      controls_on_map: false
-    });
-    maplace.Load();
+    // var maplace = new Maplace({
+    //   map_div: '#ks-payment-widget-table-and-map-map',
+    //   controls_on_map: false
+    // });
+    // maplace.Load();
   }
 }
