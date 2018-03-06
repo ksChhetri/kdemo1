@@ -9,6 +9,8 @@ export class UserSettingsContactInfoComponent implements OnInit {
 
   details: UserDetails;
 
+  url = '';
+
   constructor(private auth: AuthenticationService) { }
 
   ngOnInit() {
@@ -27,6 +29,18 @@ export class UserSettingsContactInfoComponent implements OnInit {
     }, (err) => {
       console.error(err);
     });
+  }
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event:any) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+      }
+    }
   }
 
 }

@@ -20,16 +20,17 @@
 
       <h3 class="form-signin-heading" style="text-align: center; font-size: 1.5rem;
     margin-bottom: 30px;">Login</h3>
-      <form (submit)="login()" style="display: grid;">
+      <form (submit)="login()" #userForm="ngForm" style="display: grid;">
         <div class="form-group">
           <label for="email" class="sr-only">Email address</label>
-          <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email" (click)="validateEmail()" aria-describedby="emailHelp" data-validation="email">
+          <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email" (click)="validateEmail()" aria-describedby="emailHelp" data-validation="email" required>
         </div>
         <div class="form-group">
           <label for="password" class="sr-only">Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password">
+          <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password" required>
         </div>
-        <button type="submit" class="btn" style="background-color: #25628f;">Sign in!</button>
+        <button type="submit" class="btn" style="background-color: #25628f;" [disabled] = "!userForm.form.valid">Sign in!</button>
+        <p style="color: red; text-align: center;padding-top: 25px;margin: 0px;" *ngIf = "!userForm.form.valid">**Email ID and Password are required.</p>
       </form>
       <br>
       <p class="lead" style="text-align: center;font-size: 1rem;">Not a member? Please <a routerLink="/register">register</a> instead.</p>

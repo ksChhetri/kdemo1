@@ -16,15 +16,15 @@
     margin-bottom: 60px;">
     <h3 class="form-signin-heading" style="text-align: center; font-size: 1.5rem;
     margin-bottom: 30px;">Register</h3>
-    <form (submit)="register()" style="display: grid;">
+    <form (submit)="register()" #userForm="ngForm" style="display: grid;">
       <div class="row" style="margin-bottom: 0px;">
         <div class="form-group col-md-6">
           <label for="firstname" class="sr-only">First name</label>
-          <input type="text" class="form-control" name="firstname" placeholder="First Name" [(ngModel)]="credentials.firstname">
+          <input type="text" class="form-control" name="firstname" placeholder="First Name" [(ngModel)]="credentials.firstname" required>
         </div>
         <div class="form-group col-md-6">
           <label for="lastname" class="sr-only">Last name</label>
-          <input type="text" class="form-control" name="lastname" placeholder="Last Name" [(ngModel)]="credentials.lastname">
+          <input type="text" class="form-control" name="lastname" placeholder="Last Name" [(ngModel)]="credentials.lastname" required>
         </div>
       </div>
       <!-- <div class="form-group">
@@ -33,17 +33,18 @@
         </div> -->
         <div class="form-group">
           <label for="phonenumber" class="sr-only">Phone Number</label>
-          <input type="phonenumber" class="form-control" name="phonenumber" placeholder="Phone Number" [(ngModel)]="credentials.phonenumber">
+          <input type="phonenumber" class="form-control" name="phonenumber" placeholder="Phone Number" [(ngModel)]="credentials.phonenumber" required maxlength="10" (keypress) = "omit_special_char($event)">
         </div>
         <div class="form-group">
           <label for="email" class="sr-only">Email address</label>
-          <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email" aria-describedby="emailHelp" data-validation="email">
+          <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email" required aria-describedby="emailHelp" data-validation="email">
         </div>
         <div class="form-group">
           <label for="password" class="sr-only">Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password">
+          <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password" required>
         </div>
-        <button type="submit" class="btn" style="background-color: #25628f;">Register!</button>
+        <button type="submit" class="btn" style="background-color: #25628f;" [disabled] = "!userForm.form.valid">Register!</button>
+        <p style="color: red; text-align: center;padding-top: 25px;margin: 0px;" *ngIf = "!userForm.form.valid">**All fields are required.</p>
     </form>
     <br>
     <p class="lead" style="text-align: center;font-size: 1rem;">Already have an account? Please <a routerLink="/login">login</a> instead.</p>
